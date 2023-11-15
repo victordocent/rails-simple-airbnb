@@ -1,0 +1,25 @@
+<h1>All our Flats (<%= @flats.select(&:availability).count %> available)</h1>
+
+<div class="row">
+  <% @flats.each_with_index do |flat, index| %>
+    <div class="col-md-3 mb-4">
+      <div class="card">
+        <%= image_tag(flat.primary_image, class: "card-img-top", alt: "Flat Image") if flat.primary_image.present? %>
+        <div class="card-body">
+          <h5 class="card-title"><%= flat.name %></h5>
+          <p class="card-text"><%= flat.address %></p>
+          <p class="card-text"><%= flat.description %></p>
+          <p class="card-text">Price per night: <%= flat.price_per_night %> £</p>
+          <p class="card-text">Number of guests: <%= flat.number_of_guests %></p>
+          <p class="card-text">Availability: <%= flat.availability %></p> <!-- This assumes availability is a boolean field -->
+          <a href="<%= flat_path(flat) %>" class="btn btn-primary">See more</a>
+        </div>
+      </div>
+    </div>
+
+    <% if (index + 1) % 4 == 0 %>
+      </div>
+      <div class="row">
+    <% end %>
+  <% end %>
+</div>
